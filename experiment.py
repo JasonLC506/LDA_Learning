@@ -26,6 +26,12 @@ emotions = cPickle.load(open("data/CNN_post_emotion", "r"))
 
 cp, dataE, id_map = dataProcessing(posts, emotions)
 
+print "######### data statistics ##########"
+print "Ndocs", cp.Ndocs
+print "Ntokens", cp.Ntokens
+print "V", cp.matrix.shape[1]
+print "E", dataE.shape[1]
+
 dataW = cp.matrix
 model = ETM(K=10)
 model.fit(dataE,dataW)

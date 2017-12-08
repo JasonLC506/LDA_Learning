@@ -169,6 +169,14 @@ class Corpus(object):
 
 
 def dataProcessing(posts, emotions):
+    ## subtract posts content without emotions
+    posts_new = {}
+    for key in posts.keys():
+        if key not in emotions:
+            print "content without emotion", key
+            continue
+        posts_new[key] = posts[key]
+    posts = posts_new
     ## dictionary to list ##
     content_list = []
     id_list = []
