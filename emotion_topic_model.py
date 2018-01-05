@@ -6,6 +6,7 @@ from scipy.sparse import csr_matrix
 from datetime import datetime
 from datetime import timedelta
 from tqdm import tqdm
+import cPickle
 
 class ETM(object):
     def __init__(self, K):
@@ -35,6 +36,8 @@ class ETM(object):
         self.TI = None                                          # count of topic [self.K], np.sum(self.TV, axis=1)
         self.IE = None                                          # count of emotions [self.E], np.sum(self.TE, axis=0)
 
+        # save & restore #
+        self.checkpoint_file = "ckpt/ETM"
 
     def fit(self, dataE, dataW, corpus=None, alpha=0.1, beta=0.01, max_iter = 500):
         """
@@ -50,12 +53,16 @@ class ETM(object):
         self._setDataDimension(dataE=dataE, dataW=dataW, dataToken=dataToken)
         self._initialize(dataE=dataE, dataW=dataW, dataToken=dataToken)
 
+        ppl_initial = self._ppl(dataE=dataE, dataW=dataW, dataToken=dataToken)
+        print "before training, ppl: %f" % ppl_initial
+
         ## Gibbs Sampling ##
         for epoch in range(max_iter):
             self._GibbsSamplingLocal(dataE=dataE, dataW=dataW, dataToken=dataToken, epoch=epoch)
             self._estimateGlobal()
             ppl = self._ppl(dataE=dataE, dataW=dataW, dataToken=dataToken)
             print "epoch: %d, ppl: %f" % (epoch, ppl)
+            self._saveCheckPoint(epoch, ppl)
 
     def _setHyperparameters(self, alpha, beta):
         self.alpha = alpha
@@ -167,6 +174,45 @@ class ETM(object):
         prob_dw = probNormalize(np.tensordot(np.tensordot(dataE, self.theta, axes=(-1,0)), self.phi, axes=(-1,0)))
         ppl = - np.sum(dataW.multiply(np.log(prob_dw)))/self.D
         return ppl
+
+    def _saveCheckPoint(self, epoch, ppl = None, filename = None):
+        if filename is None:
+            filename = self.checkpoint_file
+        state = {
+            "theta": self.theta,
+            "phi": self.phi,
+            "alpha": self.alpha,
+            "beta": self.beta,
+            "esp": self.esp,
+            "z": self.z,
+            "TE": self.TE,
+            "TV": self.TV,
+            "TI": self.TI,
+            "IE": self.IE,
+            "epoch": epoch,
+            "ppl": ppl
+        }
+        with open(filename, "w") as f_ckpt:
+            cPickle.dump(state, f_ckpt)
+
+    def _restoreCheckPoint(self, filename = None):
+        if filename is None:
+            filename = self.checkpoint_file
+        state = cPickle.load(open(filename, "r"))
+        # restore #
+        self.theta = state["theta"]
+        self.phi = state["phi"]
+        self.alpha = state["alpha"]
+        self.beta = state["beta"]
+        self.esp = state["esp"]
+        self.z = state["z"]
+        self.TE = state["TE"]
+        self.TV = state["TV"]
+        self.TI = state["TI"]
+        self.IE = state["IE"]
+        epoch = state["epoch"]
+        ppl = state["ppl"]
+        print "restore state from file '%s' on epoch %d with ppl: %f" % (filename, epoch, ppl)
 
 
 def probNormalize(distributions):

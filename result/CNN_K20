@@ -1,0 +1,26 @@
+######### data statistics ##########
+Ndocs 23358
+Ntokens 312236
+V 17651
+E 6
+restore state from file 'ckpt/ETM_K20' on epoch 259 with ppl: 103.548041
+Topic 0: NUMBER,two,URL,accord,woman,near,three
+Topic 1: peopl,NUMBER,attack,die,say,famili,shoot
+Topic 2: cnn,us,would,meet,berni,former,new
+Topic 3: URL,time,stori,big,great,say,women
+Topic 4: don't,told,expect,head,announc,charg,critic
+Topic 5: one,north,call,member,said,includ,california
+Topic 6: first,day,obama,us,URL,watch,protest
+Topic 7: show,million,man,break,video,even,befor
+Topic 8: new,like,make,nation,look,use,america
+Topic 9: citi,one,girl,NUMBER-year-old,power,rescu,imag
+Topic 10: URL,may,dure,tri,group,also,build
+Topic 11: trump,donald,j,presid,said,say,white
+Topic 12: poll,ago,seri,begin,van,leader,hall
+Topic 13: state,talk,law,appear,bill,let,hold
+Topic 14: hillari,clinton,URL,take,get,could,cnn
+Topic 15: york,ban,end,sunday,line,event,major
+Topic 16: hous,campaign,senat,presidenti,health,NUMBER$,press
+Topic 17: polic,kill,least,dead,NUMBER-year-old,death,fire
+Topic 18: URL,year,world,live,NUMBER,we'r,life
+Topic 19: u.,new,around,water,univers,car,case

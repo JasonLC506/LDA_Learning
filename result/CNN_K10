@@ -1,0 +1,16 @@
+######### data statistics ##########
+Ndocs 23358
+Ntokens 312236
+V 17651
+E 6
+restore state from file 'ckpt/ETM_K10' on epoch 232 with ppl: 103.699794
+Topic 0: us,time,go,nation,former,countri,protest
+Topic 1: clinton,hillari,first,URL,obama,make,big
+Topic 2: trump,donald,j,presid,say,said,hous
+Topic 3: world,stori,use,america,part,john,say
+Topic 4: NUMBER,one,URL,like,new,show,may
+Topic 5: day,week,help,could,work,know,whi
+Topic 6: URL,year,live,citi,tell,last,power
+Topic 7: URL,said,state,say,least,day,star
+Topic 8: URL,cnn,new,get,take,great,question
+Topic 9: NUMBER,peopl,polic,attack,kill,two,say
