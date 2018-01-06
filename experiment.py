@@ -5,8 +5,10 @@ import cPickle
 from matplotlib import pyplot as plt
 
 from emotion_topic_model import ETM
+from eToT import eToT
 from post_content_extract import post_content_extract
 from data_processing import Corpus, dataProcessing
+from functions import probNormalize
 
 EMOTICON_LIST = ["LIKE", "LOVE", "SAD", "WOW", "HAHA", "ANGRY"]
 
@@ -36,16 +38,33 @@ print "V", cp.matrix.shape[1]
 print "E", dataE.shape[1]
 
 dataW = cp.matrix
-model = ETM(K=20)
-# model.fit(dataE,dataW)
-model._restoreCheckPoint(filename="ckpt/ETM_K20")
-theta, phi = model.theta, model.phi
-# find top words for each topic #
-n_top_words = 8
-for i, topic_dist in enumerate(phi.tolist()):
-    topic_words = np.array(cp.words)[np.argsort(topic_dist)][:-n_top_words:-1]
-    print "Topic {}: {}".format(i, ','.join(topic_words))
-for i in range(6):
-    plt.plot(theta[i],label="e: %s" % EMOTICON_LIST[i])
-plt.legend()
-plt.show()
+model = eToT(K=10)
+model.fit(dataE,dataW, resume="ckpt/eToT_K10_epoch27")
+
+###### ETM #######
+# model._restoreCheckPoint(filename="ckpt/ETM_K20")
+# theta, phi = model.theta, model.phi
+# # find top words for each topic #
+# n_top_words = 8
+# for i, topic_dist in enumerate(phi.tolist()):
+#     topic_words = np.array(cp.words)[np.argsort(topic_dist)][:-n_top_words:-1]
+#     print "Topic {}: {}".format(i, ','.join(topic_words))
+# for i in range(6):
+#     plt.plot(theta[i],label="e: %s" % EMOTICON_LIST[i])
+# plt.legend()
+# plt.show()
+
+###### eToT ######
+# model._restoreCheckPoint(filename="ckpt/eToT_K10")
+# theta, phi, eta = model.theta, model.phi, model.eta
+# # find top words for each topic #
+# n_top_words = 8
+# for i, topic_dist in enumerate(phi.tolist()):
+#     topic_words = np.array(cp.words)[np.argsort(topic_dist)][:-n_top_words:-1]
+#     print "Topic {}: {}".format(i, ','.join(topic_words))
+# K, E = eta.shape
+# topic_emotion = probNormalize(eta)      # take mean of dirichlet distribution
+# for k in range(K):
+#     plt.plot(topic_emotion[k], label = "topic: #%02d" % k)
+# plt.legend()
+# plt.show()

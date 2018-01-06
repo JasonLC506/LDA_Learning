@@ -8,6 +8,8 @@ from datetime import timedelta
 from tqdm import tqdm
 import cPickle
 
+from functions import probNormalize, multinomial
+
 class ETM(object):
     def __init__(self, K):
         """
@@ -39,7 +41,7 @@ class ETM(object):
         # save & restore #
         self.checkpoint_file = "ckpt/ETM"
 
-    def fit(self, dataE, dataW, corpus=None, alpha=0.1, beta=0.01, max_iter = 500):
+    def fit(self, dataE, dataW, corpus=None, alpha=0.1, beta=0.01, max_iter = 500, resume = None):
         """
         Collapsed Gibbs sampler
         :param dataE: Emotion distribution of each document     np.ndarray([self.D, self.E])
@@ -51,17 +53,20 @@ class ETM(object):
         else:
             dataToken = corpus
         self._setDataDimension(dataE=dataE, dataW=dataW, dataToken=dataToken)
-        self._initialize(dataE=dataE, dataW=dataW, dataToken=dataToken)
+        if resume is None:
+            self._initialize(dataE=dataE, dataW=dataW, dataToken=dataToken)
+        else:
+            self._restoreCheckPoint(filename=resume)
 
         ppl_initial = self._ppl(dataE=dataE, dataW=dataW, dataToken=dataToken)
-        print "before training, ppl: %f" % ppl_initial
+        print "before training, ppl: %s" % str(ppl_initial)
 
         ## Gibbs Sampling ##
         for epoch in range(max_iter):
             self._GibbsSamplingLocal(dataE=dataE, dataW=dataW, dataToken=dataToken, epoch=epoch)
-            self._estimateGlobal()
+            self._estimateGlobal(dataE)
             ppl = self._ppl(dataE=dataE, dataW=dataW, dataToken=dataToken)
-            print "epoch: %d, ppl: %f" % (epoch, ppl)
+            print "epoch: %d, ppl: %s" % (epoch, str(ppl))
             self._saveCheckPoint(epoch, ppl)
 
     def _setHyperparameters(self, alpha, beta):
@@ -166,14 +171,14 @@ class ETM(object):
                 IE_no_dn[w_esp_new] += 1
                 self.TE, self.TV, self.TI, self.IE = TE_no_dn, TV_no_dn, TI_no_dn, IE_no_dn
 
-    def _estimateGlobal(self):
+    def _estimateGlobal(self, dataE):
         self.theta = probNormalize(self.alpha + np.transpose(self.TE))
         self.phi = probNormalize(self.beta + self.TV)
 
     def _ppl(self, dataE, dataW, dataToken):
         prob_dw = probNormalize(np.tensordot(np.tensordot(dataE, self.theta, axes=(-1,0)), self.phi, axes=(-1,0)))
-        ppl = - np.sum(dataW.multiply(np.log(prob_dw)))/self.D
-        return ppl
+        ppl = - np.sum(dataW.multiply(np.log(prob_dw)))/sum(self.Nd)
+        return ppl, np.exp(ppl)
 
     def _saveCheckPoint(self, epoch, ppl = None, filename = None):
         if filename is None:
@@ -212,17 +217,8 @@ class ETM(object):
         self.IE = state["IE"]
         epoch = state["epoch"]
         ppl = state["ppl"]
-        print "restore state from file '%s' on epoch %d with ppl: %f" % (filename, epoch, ppl)
+        print "restore state from file '%s' on epoch %d with ppl: %s" % (filename, epoch, str(ppl))
 
-
-def probNormalize(distributions):
-    if distributions.ndim > 1:
-        return distributions / np.sum(distributions, axis=1, keepdims=True)
-    else:
-        return distributions / np.sum(distributions)
-
-def multinomial(prob, size=1):
-    return np.argmax(np.random.multinomial(1, prob, size), axis=1)
 
 if __name__ == "__main__":
     a = np.arange(6).reshape([2,3]).astype(np.float32)
