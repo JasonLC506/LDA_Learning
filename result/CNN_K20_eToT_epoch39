@@ -1,0 +1,26 @@
+######### data statistics ##########
+Ndocs 23358
+Ntokens 312236
+V 17651
+E 6
+restore state from file 'ckpt/eToT_K20' on epoch 39 with ppl: (7.1603744632495312, -14.121972479489383, -6.9615980162398516, 0.00094758111398935199)
+Topic 0: URL,NUMBER,us,say,north,korea,one
+Topic 1: trump,donald,j,URL,presid,NUMBER,say
+Topic 2: trump,donald,j,presid,URL,say,said
+Topic 3: NUMBER,URL,new,say,peopl,hurrican,recal
+Topic 4: trump,donald,j,URL,presid,say,clinton
+Topic 5: NUMBER,URL,peopl,die,say,kill,one
+Topic 6: NUMBER,URL,polic,say,attack,kill,peopl
+Topic 7: URL,trump,donald,j,presid,clinton,hillari
+Topic 8: trump,donald,j,NUMBER,cnn,URL,say
+Topic 9: trump,donald,j,URL,presid,NUMBER,say
+Topic 10: URL,NUMBER,world,new,big,great,stori
+Topic 11: NUMBER,URL,new,one,year,great,stori
+Topic 12: trump,URL,say,donald,j,NUMBER,us
+Topic 13: URL,NUMBER,stori,big,year,great,first
+Topic 14: URL,presid,NUMBER,obama,first,watch,time
+Topic 15: URL,NUMBER,peopl,say,die,said,polic
+Topic 16: URL,NUMBER,presid,one,say,cnn,peopl
+Topic 17: URL,NUMBER,new,presid,say,us,obama
+Topic 18: trump,donald,j,URL,presid,clinton,hillari
+Topic 19: trump,donald,presid,j,URL,hous,NUMBER

@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.special import gamma
+from scipy.special import gamma, gammaln
 
 def probNormalize(distributions):
     if distributions.ndim > 1:
@@ -15,14 +15,17 @@ def multivariateBeta_inv(x):
     calculate inverse multivariate beta function, as normalization factor for dirichlet distribution
     :param x: np.ndarray(n, d)
     """
-    a = np.prod(gamma(x), axis=1)
-    b = gamma(np.sum(x, axis=1))
-    # print "############# multivariateBeta_inv #################"
-    # print "eta", x
-    # print "a", a
-    # print "b", b
-    # print "####################################################"
-    return np.divide(b, a)
+    a = np.sum(gammaln(x), axis=1)
+    b = gammaln(np.sum(x, axis=1))
+    logresult = b - a
+    print "############# multivariateBeta_inv #################"
+    print "eta", x
+    print "a", a
+    print "b", b
+    print "logresult", logresult
+    print "####################################################"
+    result = np.exp(logresult)
+    return result
 
 if __name__ == "__main__":
     x = np.ones([2,3])

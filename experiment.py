@@ -38,8 +38,8 @@ print "V", cp.matrix.shape[1]
 print "E", dataE.shape[1]
 
 dataW = cp.matrix
-model = eToT(K=10)
-model.fit(dataE,dataW, resume="ckpt/eToT_K10_epoch27")
+model = eToT(K=20)
+# model.fit(dataE,dataW, resume=None)
 
 ###### ETM #######
 # model._restoreCheckPoint(filename="ckpt/ETM_K20")
@@ -55,16 +55,16 @@ model.fit(dataE,dataW, resume="ckpt/eToT_K10_epoch27")
 # plt.show()
 
 ###### eToT ######
-# model._restoreCheckPoint(filename="ckpt/eToT_K10")
-# theta, phi, eta = model.theta, model.phi, model.eta
-# # find top words for each topic #
-# n_top_words = 8
-# for i, topic_dist in enumerate(phi.tolist()):
-#     topic_words = np.array(cp.words)[np.argsort(topic_dist)][:-n_top_words:-1]
-#     print "Topic {}: {}".format(i, ','.join(topic_words))
-# K, E = eta.shape
-# topic_emotion = probNormalize(eta)      # take mean of dirichlet distribution
-# for k in range(K):
-#     plt.plot(topic_emotion[k], label = "topic: #%02d" % k)
-# plt.legend()
-# plt.show()
+model._restoreCheckPoint(filename="ckpt/eToT_K20")
+theta, phi, eta = model.theta, model.phi, model.eta
+# find top words for each topic #
+n_top_words = 8
+for i, topic_dist in enumerate(phi.tolist()):
+    topic_words = np.array(cp.words)[np.argsort(topic_dist)][:-n_top_words:-1]
+    print "Topic {}: {}".format(i, ','.join(topic_words))
+K, E = eta.shape
+topic_emotion = probNormalize(eta)      # take mean of dirichlet distribution
+for k in range(K):
+    plt.plot(topic_emotion[k], label = "topic: #%02d" % k)
+plt.legend()
+plt.show()

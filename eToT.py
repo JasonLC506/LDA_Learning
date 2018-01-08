@@ -25,7 +25,7 @@ class eToT(ETM):
         """
         super(eToT, self).__init__(K)
         # model hyperparameters #
-        self.alpha = 0.1                                        # emotion-topic distribution prior
+        self.alpha = 0.1                                        # topic distribution prior
         self.beta = 0.01                                        # topic-word distribution prior
 
         # data dimensions #
