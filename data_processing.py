@@ -168,7 +168,7 @@ class Corpus(object):
         return set(onedoc)
 
 
-def dataProcessing(posts, emotions):
+def dataProcessing(posts, emotions, emotion_normalize=True):
     ## subtract posts content without emotions
     posts_new = {}
     for key in posts.keys():
@@ -190,7 +190,10 @@ def dataProcessing(posts, emotions):
     id_map = [id_list[cp.doc_id_map["clean2raw"][i_doc]] for i_doc in range(cp.Ndocs)]
     ## emotion_list #
     emotion_list = [emotions[id_map[i_doc]] for i_doc in range(cp.Ndocs)]
-    dataE = probNormalize(np.array(emotion_list, dtype=np.float64))
+    if emotion_normalize:
+        dataE = probNormalize(np.array(emotion_list, dtype=np.float64))
+    else:
+        dataE = np.array(emotion_list, dtype = np.int32)
 
     return cp, dataE, id_map
 

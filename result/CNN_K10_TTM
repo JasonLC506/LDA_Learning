@@ -1,0 +1,17 @@
+######### data statistics ##########
+Ndocs 23358
+Ntokens 312236
+V 17651
+E 6
+restore state from file 'ckpt/TTM' on epoch 95 with ppl: (7.1118588774470677, 0.85826118590426914, 7.9701200633513372, 2893.2047112218911)
+Topic 0: trump,donald,j,presid,said,say,hous
+Topic 1: trump,donald,j,presid,say,clinton,hillari
+Topic 2: trump,donald,j,presid,clinton,hillari,say
+Topic 3: NUMBER,URL,die,presid,attack,obama,world
+Topic 4: NUMBER,URL,great,big,world,stori,year
+Topic 5: NUMBER,peopl,kill,polic,die,attack,least
+Topic 6: NUMBER,say,polic,said,year,peopl,recal
+Topic 7: presid,obama,URL,big,great,stori,trump
+Topic 8: trump,donald,j,presid,say,URL,clinton
+Topic 9: trump,donald,j,presid,hous,white,say
+Topic B: URL,NUMBER,new,one,us,say,peopl,cnn,time,day,first,live,like,get,show

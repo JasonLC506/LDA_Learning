@@ -1,0 +1,27 @@
+######### data statistics ##########
+Ndocs 23358
+Ntokens 312236
+V 17651
+E 6
+restore state from file 'ckpt/TTM_K20' on epoch 499 with ppl: (7.0325459399277781, 0.83422179031809063, 7.8667677302458685, 2609.1185689839162)
+Topic 0: trump,donald,j,presid,said,white,hous
+Topic 1: NUMBER,kill,die,peopl,polic,attack,least
+Topic 2: NUMBER,die,peopl,URL,kill,world,attack
+Topic 3: polic,NUMBER,attack,kill,say,shoot,peopl
+Topic 4: trump,presid,donald,j,clinton,NUMBER,hillari
+Topic 5: URL,presid,obama,famili,day,live,life
+Topic 6: trump,donald,j,presid,night,hous,clinton
+Topic 7: trump,presid,donald,j,hous,white,press
+Topic 8: trump,donald,j,presid,clinton,hillari,said
+Topic 9: trump,j,donald,say,presid,said,us
+Topic 10: trump,j,donald,say,presid,elect,NUMBER
+Topic 11: presid,obama,URL,stori,year,big,great
+Topic 12: trump,donald,j,presid,clinton,say,hillari
+Topic 13: trump,donald,j,presid,NUMBER,say,said
+Topic 14: NUMBER,URL,recal,say,car,north,may
+Topic 15: trump,donald,j,clinton,hillari,presid,cnn
+Topic 16: NUMBER,peopl,polic,least,kill,say,two
+Topic 17: NUMBER,great,stori,big,world,year,URL
+Topic 18: NUMBER,say,attack,polic,presid,kill,peopl
+Topic 19: trump,donald,j,presid,polic,say,NUMBER
+Topic B: URL,NUMBER,new,one,say,us,peopl,cnn,time,day,first,like,show,said,call
